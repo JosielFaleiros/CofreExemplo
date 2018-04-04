@@ -43,14 +43,84 @@ public class CofrePMSteps extends CofrePMTest {
         cofrePM.pressButton(6);
     }
 
+    @Given("^eu digitei a senha com menos de seis$")
+    public void eu_digitei_a_senha_com_menos_de_seis() throws Exception {
+        when(memoriaMock.getSenha())
+                .thenReturn("123456");
+
+        cofrePM.pressButton(1);
+        cofrePM.pressButton(1);
+    }
+
+    @Given("^eu digitei a senha correta$")
+    public void eu_digitei_a_senha_correta() throws Exception {
+        when(memoriaMock.getSenha())
+                .thenReturn("123466");
+
+        cofrePM.pressButton(1);
+        cofrePM.pressButton(2);
+        cofrePM.pressButton(3);
+        cofrePM.pressButton(4);
+        cofrePM.pressButton(6);
+        cofrePM.pressButton(6);
+    }
+
     @Given("^eu digitei uma senha com a porta aberta$")
     public void eu_digitei_uma_senha_com_a_porta_aberta() throws Exception {
         when(sensorMock.fechada())
                 .thenReturn(Boolean.FALSE);
-        
-        for(int botao = 0; botao <=9; botao++) {
+
+        for (int botao = 0; botao <= 9; botao++) {
             cofrePM.pressButton(botao);
         }
+    }
+
+    @Given("^eu digitei uma senha com um numero com porta fechada$")
+    public void eu_digitei_uma_senha_com_um_numero_com_porta_fechada() throws Exception {
+        when(sensorMock.fechada())
+                .thenReturn(Boolean.TRUE);
+
+        cofrePM.pressButton(0);
+    }
+
+    @Given("^eu digitei uma senha valida com porta fechada$")
+    public void eu_digitei_uma_senha_valida_com_porta_fechada() throws Exception {
+        when(sensorMock.fechada())
+                .thenReturn(Boolean.TRUE);
+        when(sensorMock.travada())
+                .thenReturn(Boolean.FALSE);
+
+        cofrePM.pressButton(1);
+        cofrePM.pressButton(9);
+        cofrePM.pressButton(3);
+        cofrePM.pressButton(5);
+        cofrePM.pressButton(6);
+        cofrePM.pressButton(6);
+    }
+
+    @Given("^eu digitei uma senha com menos de seis$")
+    public void eu_digitei_uma_senha_com_menos_de_seis() throws Exception {
+        when(sensorMock.fechada())
+                .thenReturn(Boolean.TRUE);
+        when(sensorMock.travada())
+                .thenReturn(Boolean.FALSE);
+        cofrePM.pressButton(1);
+        cofrePM.pressButton(1);
+    }
+
+    @Given("^eu digitei uma senha com a porta fechada$")
+    public void eu_digitei_uma_senha_com_a_porta_fechada() throws Exception {
+        when(sensorMock.fechada())
+                .thenReturn(Boolean.TRUE);
+        cofrePM.pressButton(9);
+        cofrePM.pressButton(8);
+    }
+
+    @When("^eu abri a porta$")
+    public void eu_abri_a_porta() throws Exception {
+        when(sensorMock.fechada())
+                .thenReturn(Boolean.FALSE);
+        cofrePM.pressButton(7);
     }
 
     @When("^eu apertei ok$")
