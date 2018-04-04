@@ -26,10 +26,10 @@ public class ValidacaoHelperTest {
     public void testEhSenhaValida() {
         
         assertFalse( ValidacaoHelper.ehSenhaValida("123") );
-        assertFalse( ValidacaoHelper.ehSenhaValida("1") );
+        assertFalse( ValidacaoHelper.ehSenhaValida("123") );
         assertFalse( ValidacaoHelper.ehSenhaValida("12345") );
         assertFalse( ValidacaoHelper.ehSenhaValida("12345a") );
         
         assertTrue( ValidacaoHelper.ehSenhaValida("123999") );
-    }    
+    }
 }
